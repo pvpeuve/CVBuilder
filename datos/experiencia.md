@@ -1,21 +1,19 @@
-# Proyectos personales
+**Desarrollador IoT (Prácticas)** — Empresa XYZ
+*03/2024 – 07/2024 | Madrid, España*
+- Diseñé un sistema de monitorización IoT usando **ESP32** y **MQTT**, integrado con **Home Assistant**.
+- Automatización de tareas con scripts en **Python**, optimizando el tiempo de configuración en un 30%.
+- Documentación técnica y despliegue mediante **Docker** y **GitHub**.
 
-## *[Servidor remoto de Home Assistant en Docker](https://github.com/pvpeuve/home_assistant_IoT_server)*
+---
 
-### Funcionalidades 
-- Exposición segura del sistema mediante HTTPS con Let's Encrypt.
-- Automatización con Docker Compose.
-- Gestión de certificados SSL y puertos en entorno autoalojado.
-- Redirección cifrada y control domótico accesible fuera de la red local.
+**Técnico en Telecomunicaciones (Formación Profesional)** — Empresa ABC
+*09/2022 – 06/2023 | Vigo, España*
+- Instalación y configuración de sistemas de comunicación y redes locales.
+- Colaboración en proyectos de integración de dispositivos inteligentes y control remoto.
 
-### Tecnologías
-- Docker
-- Home Assistant
-- NGINX
-- DuckDNS
-- Let's Encrypt
-- YAML
-
-### Imágenes
-- [Página de inicio](https://github.com/pvpeuve/home_assistant_IoT_server/raw/main/images/ha_welcome.png)
-- [Página del tablero](https://github.com/pvpeuve/home_assistant_IoT_server/raw/main/images/ha_dashboard.png)
+<!--
+💡 Notas:
+- Usa formato: **Cargo – Empresa** + fechas + ubicación.
+- Usa verbos de acción: diseñé, desarrollé, optimicé, implementé, etc.
+- Añade logros medibles (“reducción del 30%”, “+5 dispositivos integrados”).
+-->
