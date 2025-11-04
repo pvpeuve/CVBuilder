@@ -50,3 +50,7 @@ CV/
   ```bash
   python3 scripts/exportar_md_a_pdf.py
   ```
+
+## Licencia
+Este repositorio se distribuye bajo [licencia MIT](LICENSE).
+Puedes reutilizar el código de automatización y estructura del CV con atribución.
