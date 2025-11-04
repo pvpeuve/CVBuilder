@@ -1,6 +1,6 @@
 # Currículum Profesional — Pablo Varela Mille
-
-Repositorio donde mantengo las versiones actualizadas de mi CV y portfolio técnico.
+> Este proyecto implementa un sistema modular para mantener y generar el currículum en formato Markdown, permitiendo actualizar secciones individuales y automatizar la exportación a PDF o su sincronización con plataformas de empleo.
+> Repositorio donde mantengo las versiones actualizadas de mi CV y portfolio técnico.
 
 ## Perfil
 Técnico en IoT y Desarrollador Python Junior con experiencia práctica en automatización local, visión por computadora e integración domótica.
@@ -50,6 +50,9 @@ CV/
   ```bash
   python3 scripts/exportar_md_a_pdf.py
   ```
+
+## Última versión del CV
+[Descargar CV en PDF](salidas/CV_ES.pdf)
 
 ## Licencia
 Este repositorio se distribuye bajo [licencia MIT](LICENSE).
