@@ -52,7 +52,7 @@ CV/
   ```
 
 ## Última versión del CV
-[Descargar CV en PDF](salidas/CV_ES.pdf)
+[Descargar CV en formato PDF](salidas/CV_ES.pdf)
 
 ## Licencia
 Este repositorio se distribuye bajo [licencia MIT](LICENSE).
