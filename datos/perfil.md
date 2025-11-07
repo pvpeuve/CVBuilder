@@ -1,5 +1,7 @@
-Soy un profesional junior especializado en **programación e IoT**, con experiencia práctica en integración de dispositivos inteligentes, automatización doméstica y desarrollo de scripts en **Python**.  
-Destaco por mi enfoque en el aprendizaje continuo, la resolución de problemas y la creación de soluciones eficientes con tecnologías como **Docker, MQTT y Home Assistant**.
+Soy un técnico en **IoT** y **Desarrollador Python Junior**, apasionado por la automatización y la integración de sistemas inteligentes.  
+Actualmente estoy ampliando mis conocimientos en visión por computadora, IA aplicada y proyectos de domótica basados en **Home Assistant** y **MQTT**.
+
+> 🔄 *Actualización de prueba para verificar el pipeline CI/CD ({{ fecha actual }})*
 
 <!--
 💡 Notas:
