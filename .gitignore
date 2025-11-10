@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+venv/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+
+# Output & PDFs
+output/*.pdf
+output/*.md
+
+# System
+.DS_Store
+Thumbs.db

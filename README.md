@@ -1,59 +1,94 @@
-# Currículum Profesional — Pablo Varela Mille
-> Este proyecto implementa un sistema modular para mantener y generar el currículum en formato Markdown, permitiendo actualizar secciones individuales y automatizar la exportación a PDF o su sincronización con plataformas de empleo.
-> Repositorio donde mantengo las versiones actualizadas de mi CV y portfolio técnico.
+# CVBuilder — Framework de generación de CVs en Markdown
 
-## Perfil
-Técnico en IoT y Desarrollador Python Junior con experiencia práctica en automatización local, visión por computadora e integración domótica.
+**CVBuilder** es una herramienta modular en Python diseñada para crear, unificar y exportar CVs o portfolios profesionales a partir de archivos Markdown.  
+Su objetivo es ofrecer una base personalizable para generar documentos en formato `.md` y `.pdf` de forma automatizada.
 
-## Enlaces
-- [LinkedIn](https://www.linkedin.com/in/pvpeuve/)
-- [GitHub](https://github.com/pvpeuve)
-- [Email](mailto:userandroidsp@gmail.com)
+---
 
-## Pipeline
-1. Generar CV unificado en Markdown (scripts/unir_secciones.py)
-2. Convertir a PDF (scripts/exportar_md_a_pdf.py)
-3. Sincronizar con LinkedIn (scripts/actualizar_linkedin.py)
+## 🚀 Características principales
 
-## Tecnologías utilizadas
-- **Markdown** para estructurar contenido modular.
-- **Python 3** para automatización de compilado y exportación.
-- **Pandoc / PyPandoc** para conversión a PDF.
-- **GitHub Actions (pendiente)** para CI/CD y publicación automática.
+- 🧩 Estructura modular por secciones (`sections/`)
+- 🧱 Plantillas personalizables en Markdown (`templates/`)
+- ⚙️ Scripts Python para unir, exportar y publicar (`scripts/`)
+- 🧾 Compatibilidad con CI/CD (GitHub Actions)
+- 🌐 Soporte multiidioma (ES / EN)
 
-## Estructura del repositorio
+---
+
+## 📂 Estructura del repositorio
+
+CVBuilder/
+├── core/ # Módulos internos de construcción/exportación
+├── scripts/ # Automatización CLI
+├── templates/ # Plantillas base (ES/EN)
+├── sections/ # Secciones modulares del CV
+├── certificates/ # Certificados del usuario (PDF/JPG)
+├── output/ # CV generado (.md / .pdf)
+├── docs/ # Documentación adicional
+├── tests/ # Pruebas automatizadas
+└── .github/workflows/ # CI/CD
+
+---
+
+## 🧠 Ejemplo de uso
+
+### 1. Editar las secciones en `sections/`
 ```markdown
-CV/
-├── datos/              # Secciones del CV (perfil, experiencia, etc.)
-├── certificaciones/    # Certificados clasificados por empresa
-├── plantillas/         # Plantillas Markdown (ES/EN)
-├── scripts/            # Automatización (unión, exportación, sincronización)
-├── salidas/            # CV generado (.md y .pdf)
-└── README.md           # Este archivo
+# sections/profile.md
+## Profile
+Passionate developer focused on automation and IoT projects.
+...
 ```
 
-## Cómo generar el CV (pendiente de desarrollo)
-1. Clonar el repositorio
-  ```bash
-  git clone https://github.com/pvpeuve/CV.git
-  cd CV
-  ```
-2. Instalar dependencias
-  ```bash
-  pip install pypandoc
-  ```
-3. Generar CV
-  ```bash
-  python3 scripts/unir_secciones.py
-  ```
-4. Exportar a PDF
-  ```bash
-  python3 scripts/exportar_md_a_pdf.py
-  ```
+### 2. Generar el CV unificado
+```bash
+python scripts/merge_sections.py
+```
 
-## Última versión del CV
-[Descargar CV en formato PDF](salidas/CV_ES.pdf)
+### 3. Exportar a PDF
+```bash
+python scripts/export_pdf.py
+```
+El resultado se guarda en output/CV_EN.pdf.
 
-## Licencia
-Este repositorio se distribuye bajo [licencia MIT](LICENSE).
-Puedes reutilizar el código de automatización y estructura del CV con atribución.
+---
+
+## 🧪 Pipeline (CI/CD)
+
+1. CI: Linter (ruff) + Tests (pytest)
+
+2. CD: Generación automática del PDF y publicación como artefacto
+
+3. Opcional: Integración con APIs o publicación en LinkedIn / GitHub Pages
+
+## 💡 Ejemplo incluido
+
+En examples/ encontrarás un caso de demostración genérico:
+
+- example_JohnDoe.json
+
+- example_JohnDoe.md
+
+---
+
+## 📄 Licencia
+
+Este proyecto se distribuye bajo licencia MIT.
+Eres libre de usar, modificar y adaptar este framework para tus propios CVs o portfolios.
+
+---
+
+## 🧰 Requisitos
+
+- Python ≥ 3.10
+
+- PyPandoc (pip install pypandoc)
+
+- Opcional: GitHub Actions para automatización CI/CD
+
+---
+
+## 🤝 Contribuciones
+
+Las contribuciones son bienvenidas.
+Puedes enviar pull requests con mejoras en la estructura, scripts o plantillas.
