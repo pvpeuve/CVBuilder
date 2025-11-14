@@ -1,9 +1,12 @@
-from pathlib import Path
-import subprocess
+from core.builder import CVBuilder
+from core.parser import SectionParser
 
-def test_unir_secciones():
-    assert subprocess.run(["python3", "scripts/unir_secciones.py"]).returncode == 0
+def test_parser_loads_sections():
+    parser = SectionParser("sections")
+    result = parser.load_section("perfil")
+    assert isinstance(result, str)
 
-def test_exportar_md_a_pdf():
-    # Solo prueba que el script no falla (sin Pandoc completo)
-    subprocess.run(["python3", "scripts/exportar_md_a_pdf.py"], check=False)
+def test_builder_merges():
+    builder = CVBuilder()
+    merged = builder.merge()
+    assert isinstance(merged, str)
