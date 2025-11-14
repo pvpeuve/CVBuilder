@@ -9,4 +9,4 @@ def test_parser_loads_sections():
 def test_builder_merges():
     builder = CVBuilder()
     merged = builder.merge()
-    assert isinstance(str)
+    assert isinstance(merged, str)
