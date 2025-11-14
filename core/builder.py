@@ -11,31 +11,28 @@ The logic is implemented progressively as the framework evolves.
 from pathlib import Path
 from typing import List
 
-
 class CVBuilder:
     """
-    CVBuilder merges multiple Markdown sections into a unified CV.
-
-    Parameters
-    ----------
-    sections_dir : Path
-        Directory containing markdown sections.
-    output_file : Path
-        Where the merged MD file will be generated.
+    Builds a unified CV from modular markdown sections.
     """
 
-    def __init__(self, sections_dir: Path, output_file: Path):
-        self.sections_dir = sections_dir
-        self.output_file = output_file
+    def __init__(self, sections_dir: str | Path = "sections", output_file: str | Path = "output/CV.md"):
+        self.sections_dir = Path(sections_dir)
+        self.output_file = Path(output_file)
 
-    def list_sections(self) -> List[Path]:
-        """Return a list of markdown files in the sections directory."""
-        return sorted(self.sections_dir.glob("*.md"))
-
-    def build(self) -> None:
+    def merge(self) -> str:
         """
-        Merge all markdown sections in alphabetical order into a single CV.
-
-        This is a stub implementation — real logic will be added later.
+        Basic merge: join ALL .md files in sections/ in alphabetical order.
         """
-        raise NotImplementedError("build() will be implemented in later versions.")
+        parts = []
+
+        for file in sorted(self.sections_dir.glob("*.md")):
+            parts.append(file.read_text(encoding="utf-8"))
+
+        return "\n\n".join(parts)
+
+    def save(self) -> None:
+        """Writes merged content to output_file."""
+        content = self.merge()
+        self.output_file.parent.mkdir(parents=True, exist_ok=True)
+        self.output_file.write_text(content, encoding="utf-8")
