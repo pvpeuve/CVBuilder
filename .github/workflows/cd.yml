@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repo
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -32,7 +32,11 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install Pandoc + deps
+      - name: Add Python path
+        run: |
+          echo "PYTHONPATH=$PWD" >> $GITHUB_ENV
+
+      - name: Install Dependecies
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc
