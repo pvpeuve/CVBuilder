@@ -1,44 +1,32 @@
 """
 exporter.py
-------------
+-----------
 
-Handles conversion from Markdown to PDF/HTML using external tools
-like Pandoc or PyPandoc.
-
-This file contains structure only — implementation is added gradually.
+Exports unified Markdown CV into PDF using pypandoc.
 """
 
 from pathlib import Path
+import pypandoc
 
 
 class CVExporter:
-    """
-    Export Markdown files into PDF/HTML formats.
+    """Exports Markdown files into PDF format."""
 
-    Parameters
-    ----------
-    input_file : Path
-        Path to the markdown file to export.
-    output_dir : Path
-        Folder where outputs (PDF/HTML) will be saved.
-    """
+    def export(self, markdown_file: str | Path, output_file: str | Path) -> Path:
+        markdown_file = Path(markdown_file)
+        output_file = Path(output_file)
 
-    def __init__(self, input_file: Path, output_dir: Path):
-        self.input_file = input_file
-        self.output_dir = output_dir
+        if not markdown_file.exists():
+            raise FileNotFoundError(f"Markdown file not found: {markdown_file}")
 
-    def to_pdf(self) -> Path:
-        """
-        Convert the Markdown input file to PDF.
+        output_file.parent.mkdir(parents=True, exist_ok=True)
 
-        Stub — implementation is added later.
-        """
-        raise NotImplementedError("to_pdf() will be implemented in later versions.")
+        # Convert using pypandoc
+        pypandoc.convert_file(
+            source_file=str(markdown_file),
+            to="pdf",
+            outputfile=str(output_file),
+            extra_args=["--pdf-engine=xelatex"]
+        )
 
-    def to_html(self) -> Path:
-        """
-        Convert the Markdown input file to HTML.
-
-        Stub — implementation is added later.
-        """
-        raise NotImplementedError("to_html() will be implemented in later versions.")
+        return output_file
