@@ -34,7 +34,7 @@ jobs:
 
       - name: Add Python path
         run: |
-          echo "PYTHONPATH=$PWD" >> $GITHUB_ENV
+          echo "${{ github.workspace }}" >> $GITHUB_ENV
 
       - name: Install Dependecies
         run: |
