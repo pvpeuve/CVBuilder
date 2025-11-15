@@ -1,45 +1,40 @@
-name: CD — Build & Release CV
+name: CD — Build Demo CV (Markdown + PDF)
 
 on:
   workflow_run:
-    workflows: ["CI — CV (Ruff + Pytest)"]
+    workflows: ["CI — CVBuilder (Ruff + Pytest)"]
     types:
       - completed
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  build:
+  build-cv:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python & Pandoc
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-      - run: |
-          sudo apt-get update && sudo apt-get install -y pandoc
+          python-version: "3.12"
+
+      - name: Install Pandoc + deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
           pip install pypandoc
 
-      - name: Build CV (MD + PDF)
+      - name: Run CV generation
         run: |
-          python3 scripts/unir_secciones.py
-          python3 scripts/exportar_md_a_pdf.py
+          python3 scripts/generate_cv.py --demo --sections sections --md-output output/demo_CV.md --pdf-output-dir output
 
-      - name: Upload CV as artifact
+      - name: Upload generated CV
         uses: actions/upload-artifact@v4
         with:
-          name: CV_PDF
-          path: salidas/CV_ES.pdf
-
-      - name: Commit and push updated CV
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add salidas/CV_ES.pdf
-          git commit -m "chore: actualizar CV_ES.pdf [auto]"
-          git push
+          name: demo_CV
+          path: output/demo_CV.pdf
