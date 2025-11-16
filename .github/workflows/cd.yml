@@ -44,7 +44,7 @@ jobs:
 
       - name: Run CV generation
         run: |
-          python3 scripts/generate_cv.py --demo --sections sections --md-output output/demo_CV.md --pdf-output-dir output
+          python3 scripts/generate_cv.py --demo --sections sections --md-output output/demo_CV.md --pdf --pdf-output-dir output
 
       - name: Upload generated CV
         uses: actions/upload-artifact@v4

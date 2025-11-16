@@ -39,10 +39,12 @@ def main():
         exporter = CVExporter(input_file=md_output, output_dir=pdf_output_dir)
 
         try:
-            result = exporter.to_pdf()
-            print(f"[OK] PDF generated at {result}")
+            pdf_file = exporter.to_pdf()
+            print(f"[OK] PDF generated at {pdf_file}")
         except NotImplementedError:
-            print("[WARN] PDF export not implemented. Skipping.")
+            print("[WARN] PDF export is not implemented yet. Skipping PDF generation.")
+    else:
+        print("[INFO] PDF export disabled (--pdf not provided).")
 
     if args.demo:
         print("[INFO] Demo mode enabled. Generated demo CV for CI/CD.")
