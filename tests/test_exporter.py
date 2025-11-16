@@ -1,6 +1,5 @@
 from core.exporter import CVExporter
 from unittest.mock import patch
-from pathlib import Path
 import pytest
 
 
