@@ -1,32 +1,52 @@
-"""
-exporter.py
------------
-
-Exports unified Markdown CV into PDF using pypandoc.
-"""
-
-from pathlib import Path
 import pypandoc
+from pathlib import Path
 
 
 class CVExporter:
-    """Exports Markdown files into PDF format."""
+    """
+    Export Markdown files into PDF/HTML formats.
+    """
 
-    def export(self, markdown_file: str | Path, output_file: str | Path) -> Path:
-        markdown_file = Path(markdown_file)
-        output_file = Path(output_file)
+    def __init__(self, input_file: Path, output_dir: Path):
+        self.input_file = Path(input_file)
+        self.output_dir = Path(output_dir)
 
-        if not markdown_file.exists():
-            raise FileNotFoundError(f"Markdown file not found: {markdown_file}")
+    def to_pdf(self) -> Path:
+        """
+        Converts the Markdown input file to a PDF file using pypandoc.
+        """
+        if not self.input_file.exists():
+            raise FileNotFoundError(f"Markdown file not found: {self.input_file}")
 
-        output_file.parent.mkdir(parents=True, exist_ok=True)
+        self.output_dir.mkdir(exist_ok=True, parents=True)
 
-        # Convert using pypandoc
+        output_pdf = self.output_dir / (self.input_file.stem + ".pdf")
+
+        # Llamada real a Pandoc vía pypandoc
         pypandoc.convert_file(
-            source_file=str(markdown_file),
-            to="pdf",
-            outputfile=str(output_file),
+            str(self.input_file),
+            "pdf",
+            outputfile=str(output_pdf),
             extra_args=["--pdf-engine=xelatex"]
         )
 
-        return output_file
+        return output_pdf
+
+    def to_html(self) -> Path:
+        """
+        Converts Markdown to HTML file.
+        """
+        if not self.input_file.exists():
+            raise FileNotFoundError(f"Markdown file not found: {self.input_file}")
+
+        self.output_dir.mkdir(exist_ok=True, parents=True)
+
+        output_html = self.output_dir / (self.input_file.stem + ".html")
+
+        pypandoc.convert_file(
+            str(self.input_file),
+            "html",
+            outputfile=str(output_html)
+        )
+
+        return output_html

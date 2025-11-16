@@ -23,11 +23,9 @@ def main():
     exporter = CVExporter(input_file=input_file, output_dir=output_dir)
 
     print(f"[INFO] Exporting {input_file} to PDF...")
-    try:
-        exporter.to_pdf()
-    except NotImplementedError:
-        print("[WARN] to_pdf() is not implemented yet. Placeholder executed.")
-    print(f"[INFO] Export completed. PDF saved in {output_dir}")
+
+    pdf_path = exporter.to_pdf()
+    print(f"[OK] PDF generated at: {pdf_path}")
 
 
 if __name__ == "__main__":

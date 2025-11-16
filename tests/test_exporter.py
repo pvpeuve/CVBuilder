@@ -6,25 +6,26 @@ import pytest
 def test_exporter_calls_pandoc(tmp_path):
     """Exporter must call pypandoc.convert_file() to generate the PDF."""
 
-    exporter = CVExporter()
-
     md_file = tmp_path / "sample.md"
-    out_file = tmp_path / "out.pdf"
-
     md_file.write_text("# Test CV", encoding="utf-8")
 
+    exporter = CVExporter(input_file=md_file, output_dir=tmp_path)
+
     with patch("pypandoc.convert_file") as mock_convert:
-        exporter.export(md_file, out_file)
+        pdf_path = exporter.to_pdf()
 
         mock_convert.assert_called_once()
+
         args, kwargs = mock_convert.call_args
-        assert kwargs["outputfile"] == str(out_file)
+
+        assert kwargs["outputfile"] == str(pdf_path)
 
 
-def test_exporter_missing_file():
+def test_exporter_missing_file(tmp_path):
     """Exporter must raise error when markdown file does not exist."""
 
-    exporter = CVExporter()
+    missing_md = tmp_path / "no_existe.md"
+    exporter = CVExporter(input_file=missing_md, output_dir=tmp_path)
 
     with pytest.raises(FileNotFoundError):
-        exporter.export("no_existe.md", "salida.pdf")
+        exporter.to_pdf()
