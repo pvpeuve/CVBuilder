@@ -21,11 +21,20 @@ class CVBuilder:
 
     def merge(self) -> str:
         """
-        Basic merge: join ALL .md files in sections/ in alphabetical order.
+        Basic merge: join ALL .md files in sections/ based on section list names.
         """
         parts = []
-
-        for file in sorted(self.sections_dir.glob("*.md")):
+        SECTION_ORDER = [
+    		"perfil",
+    		"habilidades_tecnicas",
+    		"habilidades_blandas",
+    		"educacion",
+    		"experiencia",
+    		"certificaciones",
+    		"proyectos"
+	]
+        for name in SECTION_ORDER:
+	    file = self.sections_dir / f"{name}.md"
             parts.append(file.read_text(encoding="utf-8"))
 
         return "\n\n".join(parts)
