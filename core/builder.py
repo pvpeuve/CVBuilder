@@ -20,24 +20,17 @@ class CVBuilder:
         self.output_file = Path(output_file)
 
     def merge(self) -> str:
-        """
-        Basic merge: join ALL .md files in sections/ based on section list names.
-        """
         parts = []
-        SECTION_ORDER = [
-                "perfil",
-    		"habilidades_tecnicas",
-    		"habilidades_blandas",
-    		"educacion",
-    		"experiencia",
-    		"certificaciones",
-    		"proyectos"
-	]
-        for name in SECTION_ORDER:
-            file = self.sections_dir / f"{name}.md"
-            parts.append(file.read_text(encoding="utf-8"))
 
-        return "\n\n".join(parts)
+        for name in SECTION_ORDER:
+            path = self.sections_dir / f"{name}.md"
+
+            if path.exists():
+                parts.append(path.read_text(encoding="utf-8"))
+            else:
+                parts.append(f"<!-- Missing section: {name} -->")
+
+        return "\n\n".join(parts))
 
     def save(self) -> None:
         """Writes merged content to output_file."""
