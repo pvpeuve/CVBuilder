@@ -1,94 +1,155 @@
-# CVBuilder — Framework de generación de CVs en Markdown
+# 📄 CVAssembler — Framework modular para generar CVs en Markdown y PDF
 
-**CVBuilder** es una herramienta modular en Python diseñada para crear, unificar y exportar CVs o portfolios profesionales a partir de archivos Markdown.  
-Su objetivo es ofrecer una base personalizable para generar documentos en formato `.md` y `.pdf` de forma automatizada.
+**CVAssembler** es una herramienta modular escrita en Python que permite construir, unificar y exportar CVs profesionales usando secciones en Markdown y plantillas dinámicas.  
+Incluye scripts CLI, plantillas personalizables, soporte para CI/CD y generación automática de PDF mediante `pypandoc` y `xelatex`.
 
 ---
 
 ## 🚀 Características principales
 
-- 🧩 Estructura modular por secciones (`sections/`)
-- 🧱 Plantillas personalizables en Markdown (`templates/`)
-- ⚙️ Scripts Python para unir, exportar y publicar (`scripts/`)
-- 🧾 Compatibilidad con CI/CD (GitHub Actions)
-- 🌐 Soporte multiidioma (ES / EN)
+- 🧩 **Secciones modulares** (`sections/`) → perfiles, educación, experiencia, habilidades, proyectos…
+- 🎨 **Plantillas personalizables** (`templates/default.md`)
+- 🛠️ **Core en Python** para unir secciones y exportar a PDF/HTML
+- 📦 **Scripts CLI** (`scripts/`) listos para automatizar generación y exportación
+- 🔄 **CI/CD integrado** (GitHub Actions)
+- 🧪 **Tests automáticos** con pytest + ruff
 
 ---
 
 ## 📂 Estructura del repositorio
 
-CVBuilder/
-├── core/ # Módulos internos de construcción/exportación
-├── scripts/ # Automatización CLI
-├── templates/ # Plantillas base (ES/EN)
+CVAssembler/
+├── core/ # Lógica interna: builder, parser, exporter
+├── scripts/ # Scripts de automatización CLI
+├── templates/ # Plantillas base (Markdown)
 ├── sections/ # Secciones modulares del CV
-├── certificates/ # Certificados del usuario (PDF/JPG)
-├── output/ # CV generado (.md / .pdf)
-├── docs/ # Documentación adicional
-├── tests/ # Pruebas automatizadas
-└── .github/workflows/ # CI/CD
+├── output/ # Archivos generados (.md / .pdf)
+├── certificates/ # Certificados opcionales del usuario
+├── tests/ # Pruebas automáticas
+├── docs/ # Documentación (changelog, etc.)
+└── .github/workflows/ # CI/CD (lint, tests, demo PDF)
 
 ---
 
-## 🧠 Ejemplo de uso
+## 🧠 ¿Cómo funciona?
 
-### 1. Editar las secciones en `sections/`
-```markdown
-# sections/profile.md
-## Profile
-Passionate developer focused on automation and IoT projects.
-...
-```
+### 1. Unir secciones en un único CV Markdown
 
-### 2. Generar el CV unificado
 ```bash
 python scripts/merge_sections.py
 ```
-
-### 3. Exportar a PDF
+Esto genera:
 ```bash
-python scripts/export_pdf.py
+output/CV.md
 ```
-El resultado se guarda en output/CV_EN.pdf.
+
+### 2. Exportar el CV a PDF
+
+```bash
+python scripts/export_pdf.py --input output/CV.md --output output/
+```
+Esto genera:
+```bash
+output/CV.pdf
+```
+
+3. Generar un CV completo (merge + export)
+
+```bash
+python scripts/generate_cv.py --pdf
+```
+Modo demo (usado en CI/CD):
+```bash
+python scripts/generate_cv.py --demo --pdf
+```
 
 ---
 
-## 🧪 Pipeline (CI/CD)
+## 🎨 Plantilla personalizable
 
-1. CI: Linter (ruff) + Tests (pytest)
+Se encuentra en:
+```bash
+templates/default.md
+```
 
-2. CD: Generación automática del PDF y publicación como artefacto
-
-3. Opcional: Integración con APIs o publicación en LinkedIn / GitHub Pages
-
-## 💡 Ejemplo incluido
-
-En examples/ encontrarás un caso de demostración genérico:
-
-- example_JohnDoe.json
-
-- example_JohnDoe.md
+Incluye placeholders como:
+```bash
+{{nombre_completo}}
+{{email}}
+{{experiencia}}
+{{habilidades_tecnicas}}
+```
 
 ---
 
-## 📄 Licencia
+## 🔧 Scripts incluidos
 
-Este proyecto se distribuye bajo licencia MIT.
-Eres libre de usar, modificar y adaptar este framework para tus propios CVs o portfolios.
+| Script | Función |
+|:------:|:-------:|
+| merge_sections.py | Une todas las secciones en un solo Markdown |
+| export_pdf.py | Convierte un Markdown a PDF con Pandoc |
+| generate_cv.py | Pipeline completo (merge + PDF) |
+| demo (CI/CD) | Genera automáticamente demo_CV.pdf |
+
+---
+
+## 🧪 Tests automáticos
+
+CI ejecuta:
+- Ruff (lint)
+- Pytest (tests unitarios)
+
+Se prueban:
+- Unión de secciones
+- Parser de secciones
+- Exporter con mocking de pypandoc
+
+---
+
+## 🔄 CI/CD (GitHub Actions)
+ncluye:
+
+### ✔️ CI — Lint + Tests
+
+Ejecuta automáticamente:
+- Formato con Ruff
+- Test suite con pytest
+
+### ✔️ CD — Build Demo CV
+
+Cuando CI pasa correctamente:
+- Genera un demo_CV.md
+- Exporta demo_CV.pdf
+- Lo sube como artifact en GitHub
+
+Esto garantiza que cualquiera que haga fork tiene un CV funcional desde el primer minuto.
+
+---
+
+## 📦 Ejemplo de datos
+
+En la carpeta sections/ ya existe un CV completo de demostración con placeholders totalmente genéricos.
+
+Los usuarios solo deben abrirlos y reemplazar los valores.
 
 ---
 
 ## 🧰 Requisitos
 
-- Python ≥ 3.10
+- Python ≥ 3.12
+- pypandoc
+- pandoc
+- xelatex (se instala dentro del CI/CD)
 
-- PyPandoc (pip install pypandoc)
+---
 
-- Opcional: GitHub Actions para automatización CI/CD
+## 📄 Licencia
+
+Este proyecto está bajo licencia MIT.
+Puedes usarlo, modificarlo y adaptarlo libremente.
 
 ---
 
 ## 🤝 Contribuciones
 
-Las contribuciones son bienvenidas.
-Puedes enviar pull requests con mejoras en la estructura, scripts o plantillas.
+Pull requests y mejoras son bienvenidas.
