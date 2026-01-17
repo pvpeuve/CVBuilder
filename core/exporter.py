@@ -2,7 +2,7 @@ import pypandoc
 from pathlib import Path
 
 
-class CVExporter:
+class export:
     """
     Export Markdown files into PDF/HTML formats.
     """
@@ -32,7 +32,7 @@ class CVExporter:
 			"-V", "mainfont=DejaVu Serif",
 			"-V", "sansfont=DejaVu Sans",
 			"-V", "monofont=DejaVu Sans Mono"
-	    ]
+			]
         )
 
         return output_pdf

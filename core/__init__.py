@@ -1,5 +1,5 @@
 """
-CVBuilder core package.
+CVAssembler core package.
 
 Contains the main building blocks for:
 - merging sections
@@ -10,7 +10,7 @@ This package is intentionally minimal.
 Full logic is implemented progressively in later versions.
 """
 
-from .builder import CVBuilder
-from .exporter import CVExporter
+from .builder import build
+from .exporter import export
 
-__all__ = ["CVBuilder", "CVExporter"]
+__all__ = ["build", "export"]
