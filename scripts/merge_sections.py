@@ -6,30 +6,30 @@ CLI tool that uses CVBuilder to merge markdown sections
 into a unified CV markdown file.
 """
 
-import argparse
+import typer
 from pathlib import Path
-from core.builder import CVBuilder
+from core.builder import build
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Merge CV sections into a single Markdown file.")
-    parser.add_argument("--sections", type=str, default="sections/", help="Directory with .md section files.")
-    parser.add_argument("--output", type=str, default="output/CV.md", help="Final merged markdown file.")
+app = typer.Typer()
 
-    args = parser.parse_args()
+@app.command(help="Merge CV sections into a single Markdown file.")
+def main(
+    sections: str = typer.Option("sections/", help="Directory with .md section files."),
+    output: str = typer.Option("output/CV.md", help="Final merged markdown file."),
+):
+    sections_dir = Path(sections)
+    output_file = Path(output)
 
-    sections_dir = Path(args.sections)
-    output_file = Path(args.output)
+    builder = build(sections_dir=sections_dir, output_file=output_file)
 
-    builder = CVBuilder(sections_dir=sections_dir, output_file=output_file)
-
-    print(f"[INFO] Merging sections from {sections_dir} ...")
+    typer.echo(f"[INFO] Merging sections from {sections_dir} ...")
     try:
-        builder.build()
+        builder.merge()
     except NotImplementedError:
-        print("[WARN] build() is not implemented yet. Placeholder executed.")
-    print(f"[INFO] Output saved to {output_file}")
+        typer.echo("[WARN] merge() is not implemented yet. Placeholder executed.")
+    typer.echo(f"[INFO] Output saved to {output_file}")
 
 
 if __name__ == "__main__":
-    main()
+    app()

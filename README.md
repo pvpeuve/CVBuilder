@@ -1,8 +1,8 @@
 # 📄 CVAssembler — Framework modular para generar CVs en Markdown y PDF
 
-**CVAssembler** es una herramienta modular escrita en Python que permite construir, unificar y exportar CVs profesionales usando secciones en Markdown y plantillas dinámicas.
+**CVAssembler** es una herramienta modular escrita en **Python** que permite **construir, unificar y exportar** CVs profesionales usando **secciones** en Markdown y **plantillas** dinámicas.
 
-Incluye scripts CLI, plantillas personalizables, soporte para CI/CD y generación automática de PDF mediante `pypandoc` y `xelatex`.
+**Incluye** scripts CLI escritos con **`typer`**, plantillas personalizables, soporte para CI/CD y generación automática de PDF mediante **`pypandoc`** y **`xelatex`**.
 
 ---
 
@@ -14,6 +14,8 @@ Incluye scripts CLI, plantillas personalizables, soporte para CI/CD y generació
 * 📦 **Scripts CLI** (`scripts/`) listos para automatizar generación y exportación
 * 🔄 **CI/CD integrado** (GitHub Actions)
 * 🧪 **Tests automáticos** con pytest + ruff
+
+>[Ver todo](docs/CHANGELOG.md)
 
 ---
 
@@ -137,8 +139,11 @@ Los usuarios solo deben abrirlos y reemplazar los valores.
 
 * Python ≥ 3.12
 * pypandoc
+* typer
 * pandoc (se instala dentro del CI/CD)
 * xelatex (se instala dentro del CI/CD)
+
+>[Ver todo](requirements.txt)
 
 ---
 

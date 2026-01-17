@@ -39,8 +39,8 @@ jobs:
       - name: Install Dependecies
         run: |
           sudo apt-get update
-          sudo apt-get install -y pandoc texlive-xetex texlive-latex-recommended texlive-fonts-recommended
-          pip install pypandoc
+          sudo apt-get install -y pandoc texlive-xetex texlive-latex-recommended texlive-fonts-recommended 
+          pip install pypandoc typer
 
       - name: Run CV generation
         run: |

@@ -7,50 +7,52 @@ High-level wrapper that:
 2. Optionally exports the markdown file into PDF.
 """
 
-import argparse
+import typer
 from pathlib import Path
-from core.builder import CVBuilder
-from core.exporter import CVExporter
+from core.builder import build
+from core.exporter import export
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Generate complete CV (MD + optional PDF).")
+app = typer.Typer()
 
-    parser.add_argument("--sections", default="sections/", help="Directory of CV sections.")
-    parser.add_argument("--md-output", default="output/CV.md", help="Merged markdown output file.")
-    parser.add_argument("--pdf-output-dir", default="output/", help="Directory for generated PDF.")
-    parser.add_argument("--pdf", action="store_true", help="Enable PDF export.")
-    parser.add_argument("--demo", action="store_true", help="Generate a demo CV using placeholders.")
+@app.command(help="Generate complete CV with both Markdown and (optional) PDF export.")
+def main(
+    sections: str = typer.Option("sections/", help="Directory of CV sections."),
+    md_output: str = typer.Option("output/CV.md", help="Merged markdown output file."),
+    pdf_output_dir: str = typer.Option("output/", help="Directory for generated PDF."),
+    pdf: bool = typer.Option(False, help="Enable PDF export."),
+    demo: bool = typer.Option(False, help="Generate a demo CV using placeholders."),
+):
+    sections_dir = Path(sections)
+    md_output_path = Path(md_output)
+    pdf_output_dir = Path(pdf_output_dir)
 
-    args = parser.parse_args()
+    typer.echo("[INFO] Step 1: Merging Markdown sections...")
+    builder = build(sections_dir=sections_dir, output_file=md_output_path)
+    
+    try:
+        builder.save()
+        typer.echo(f"[OK] Markdown generated at {md_output_path}")
+    except NotImplementedError:
+        typer.echo("[WARN] PDF export is not implemented yet. Skipping Markdown generation.")
 
-    sections_dir = Path(args.sections)
-    md_output = Path(args.md_output)
-    pdf_output_dir = Path(args.pdf_output_dir)
-
-    print("[INFO] Step 1: Merging Markdown sections...")
-    builder = CVBuilder(sections_dir=sections_dir, output_file=md_output)
-
-    builder.save()
-    print(f"[OK] Markdown generated at {md_output}")
-
-    if args.pdf:
-        print("[INFO] Step 2: Exporting to PDF...")
-        exporter = CVExporter(input_file=md_output, output_dir=pdf_output_dir)
+    if pdf:
+        typer.echo("[INFO] Step 2: Exporting to PDF...")
+        exporter = export(input_file=md_output_path, output_dir=pdf_output_dir)
 
         try:
             pdf_file = exporter.to_pdf()
-            print(f"[OK] PDF generated at {pdf_file}")
+            typer.echo(f"[OK] PDF generated at {pdf_file}")
         except NotImplementedError:
-            print("[WARN] PDF export is not implemented yet. Skipping PDF generation.")
+            typer.echo("[WARN] PDF export is not implemented yet. Skipping PDF generation.")
     else:
-        print("[INFO] PDF export disabled (--pdf not provided).")
+        typer.echo("[INFO] PDF export disabled (--pdf not provided).")
 
-    if args.demo:
-        print("[INFO] Demo mode enabled. Generated demo CV for CI/CD.")
+    if demo:
+        typer.echo("[INFO] Demo mode enabled. Generated demo CV for CI/CD.")
 
-    print("[INFO] CV generation completed.")
+    typer.echo("[INFO] CV generation completed.")
 
 
 if __name__ == "__main__":
-    main()
+    app()

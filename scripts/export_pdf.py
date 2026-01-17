@@ -5,28 +5,28 @@ export_pdf.py
 CLI tool that converts a unified markdown CV into PDF.
 """
 
-import argparse
+import typer
 from pathlib import Path
-from core.exporter import CVExporter
+from core.exporter import export
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Export Markdown CV to PDF.")
-    parser.add_argument("--input", type=str, default="output/CV.md", help="Input markdown file.")
-    parser.add_argument("--output", type=str, default="output/", help="Output directory for PDF.")
+app = typer.Typer()
 
-    args = parser.parse_args()
+@app.command(help="Export Markdown CV to PDF.")
+def main(
+    input: str = typer.Option("output/CV.md", help="Input markdown file."),
+    output: str = typer.Option("output/", help="Output directory for PDF."),
+):
+    input_file = Path(input)
+    output_dir = Path(output)
 
-    input_file = Path(args.input)
-    output_dir = Path(args.output)
+    exporter = export(input_file=input_file, output_dir=output_dir)
 
-    exporter = CVExporter(input_file=input_file, output_dir=output_dir)
-
-    print(f"[INFO] Exporting {input_file} to PDF...")
+    typer.echo(f"[INFO] Exporting {input_file} to PDF...")
 
     pdf_path = exporter.to_pdf()
-    print(f"[OK] PDF generated at: {pdf_path}")
+    typer.echo(f"[OK] PDF generated at: {pdf_path}")
 
 
 if __name__ == "__main__":
-    main()
+    app()

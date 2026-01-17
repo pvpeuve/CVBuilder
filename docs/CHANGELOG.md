@@ -1,6 +1,4 @@
-# Changelog
-
-## v1.0.0 — 2025-11-20
+# v1.0.0 — 2025-11-20
 - Primera versión estable.
 - Estructura modular completa (core, sections, templates).
 - Generación automática de CV en Markdown y PDF.

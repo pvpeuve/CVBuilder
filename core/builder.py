@@ -10,7 +10,7 @@ The logic is implemented progressively as the framework evolves.
 
 from pathlib import Path
 
-class CVBuilder:
+class build:
     """
     Builds a unified CV from modular markdown sections.
     """
@@ -22,15 +22,15 @@ class CVBuilder:
     def merge(self) -> str:
         parts = []
         SECTION_ORDER = [
-          "perfil",
-          "contacto",
-          "educacion",
-          "experiencia",
-          "habilidades_tecnicas",
-          "habilidades_blandas",
-          "idiomas",
-          "certificaciones",
-          "proyectos",
+            "perfil",
+            "contacto",
+            "educacion",
+            "experiencia",
+            "habilidades_tecnicas",
+            "habilidades_blandas",
+            "idiomas",
+            "certificaciones",
+            "proyectos",
         ]
         for name in SECTION_ORDER:
             path = self.sections_dir / f"{name}.md"
